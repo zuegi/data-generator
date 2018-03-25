@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: development
+
+logging:
+  level:
+   ch:
+    wesr:
+      level: debug
