@@ -4,6 +4,6 @@ spring:
 
 logging:
   level:
-   ch:
-    wesr:
-      level: debug
+    ch.wesr: debug
+
+simConfigFile: /usr/home/catchMeIfYouCan.txt
