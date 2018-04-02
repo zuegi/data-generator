@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author andrewserff
  */
 public class SimulationRunner {
@@ -37,29 +36,45 @@ public class SimulationRunner {
         this.eventLoggers = loggers;
         eventGenerators = new ArrayList<EventGenerator>();
         eventGenThreads = new ArrayList<Thread>();
-        
+
         setupSimulation();
     }
 
     private void setupSimulation() {
         running = false;
-        for (Workflow workflow: this.getWorkflows()) {
-//            try {
-//                Workflow w = JSONConfigReader.readConfig(this.getClass().getClassLoader().getResourceAsStream(workflowConfig.getWorkflowFilename()), Workflow.class);
-//                final EventGenerator gen = new EventGenerator(w, workflowConfig.getWorkflowName(), eventLoggers);
-                final EventGenerator gen = new EventGenerator(workflow, "gaga", eventLoggers);
-//                log.info("Adding EventGenerator for [ " + workflowConfig.getWorkflowName()+ "," + workflowConfig.getWorkflowFilename()+ " ]");
+        for (WorkflowConfig workflowConfig : simulationConfig.getWorkflows()) {
+            Workflow workflow = workflows.stream().filter(item -> item.getWorkflowName().equals(workflowConfig.getWorkflowName()))
+                    .findFirst()
+                    .orElse(null);
+
+            if (workflow != null) {
+                final EventGenerator gen = new EventGenerator(workflow, workflow.getWorkflowName(), eventLoggers);
+                log.info("Found Workflowname in simumlationConfig and WorkflowConfig: [ " + workflowConfig.getWorkflowName() + " ]");
                 eventGenerators.add(gen);
                 eventGenThreads.add(new Thread(gen));
-//            } catch (IOException ex) {
-//                log.error("Error reading config: " + "gaga", ex);
-//            }
+            }
         }
+
+
+//
+//        for (Workflow workflow: this.getWorkflows()) {
+////            try {
+////                Workflow w = JSONConfigReader.readConfig(this.getClass().getClassLoader().getResourceAsStream(workflowConfig.getWorkflowFilename()), Workflow.class);
+////                final EventGenerator gen = new EventGenerator(w, workflowConfig.getWorkflowName(), eventLoggers);
+//            // we only want the corresponding workflow
+//                final EventGenerator gen = new EventGenerator(workflow, "gaga", eventLoggers);
+////                log.info("Adding EventGenerator for [ " + workflowConfig.getWorkflowName()+ "," + workflowConfig.getWorkflowFilename()+ " ]");
+//                eventGenerators.add(gen);
+//                eventGenThreads.add(new Thread(gen));
+////            } catch (IOException ex) {
+////                log.error("Error reading config: " + "gaga", ex);
+////            }
+//        }
     }
 
     public void startSimulation() {
         log.info("Starting Simulation");
-               
+
         if (eventGenThreads.size() > 0) {
             for (Thread t : eventGenThreads) {
                 t.start();

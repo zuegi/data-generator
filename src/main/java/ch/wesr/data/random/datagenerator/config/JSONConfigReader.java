@@ -42,4 +42,5 @@ public class JSONConfigReader {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(input, targetClass);
     }
+
 }

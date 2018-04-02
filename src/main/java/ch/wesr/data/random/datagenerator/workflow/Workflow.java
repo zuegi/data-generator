@@ -14,6 +14,7 @@ import java.util.*;
  */
 public class Workflow {
     private List<WorkflowStep> steps;
+    private String workflowName;
     /** how often events should be generated.  i.e. time between steps */
     private long eventFrequency;
     private boolean varyEventFrequency;
@@ -189,6 +190,22 @@ public class Workflow {
      */
     public void setStepRunMode(String stepRunMode) {
         this.stepRunMode = stepRunMode;
+    }
+
+    /**
+     *
+     * @return the workflowName
+     */
+    public String getWorkflowName() {
+        return workflowName;
+    }
+
+    /**
+     *
+     * @param workflowName the workflowName to set
+     */
+    public void setWorkflowName(String workflowName) {
+        this.workflowName = workflowName;
     }
     
 }

@@ -27,7 +27,7 @@ public class DataGenerator {
     public DataGenerator() {
     }
 
-    public void startGeneratingData() {
+    public void prepareEventLogger() {
         if (this.simConfig != null && this.workflows != null) {
             try {
                 List<EventLogger> loggers = new ArrayList<>();
@@ -84,13 +84,35 @@ public class DataGenerator {
     public boolean isRunning() {
         return this.simRunner.isRunning();
     }
-
-
-    public void setSimConfig(SimulationConfig simulationConfig) {
-        this.simConfig = simulationConfig;
+    
+    public boolean setSimConfig(SimulationConfig simulationConfig) {
+        if(this.simConfig == null) {
+            this.simConfig = simulationConfig;
+            this.prepareEventLogger();
+            return true;
+        } else {
+            log.warn("Simulation Configuration alreday set as [ " +simulationConfig.getSimulationConfigName() +" ]. You probably should clear your configuration");
+            return false;
+        }
     }
 
     public void setWorkflowConfig(List<Workflow> workflows) {
         this.workflows = workflows;
+    }
+
+    public SimulationConfig getSimConfig() {
+        return simConfig;
+    }
+
+    public boolean hasSimConfig() {
+        if(simConfig == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void clearSimulationConfig() {
+        this.simConfig = null;
     }
 }

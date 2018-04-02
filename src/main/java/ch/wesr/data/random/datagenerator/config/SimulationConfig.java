@@ -15,6 +15,7 @@ import java.util.Map;
  * @author andrewserff
  */
 public class SimulationConfig {
+    private String simulationConfigName;
     private List<WorkflowConfig> workflows;
     private List<Map<String, Object>> producers;
     
@@ -53,5 +54,21 @@ public class SimulationConfig {
      */
     public void setProducers(List<Map<String, Object>> producers) {
         this.producers = producers;
+    }
+
+    /**
+     *
+     * @return the simulationConfigName;
+     */
+    public String getSimulationConfigName() {
+        return simulationConfigName;
+    }
+
+    /**
+     *
+     * @param simulationConfigName the simulationConfigName to set
+     */
+    public void setSimulationConfigName(String simulationConfigName) {
+        this.simulationConfigName = simulationConfigName;
     }
 }

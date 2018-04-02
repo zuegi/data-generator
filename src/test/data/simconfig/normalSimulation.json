@@ -1,0 +1,17 @@
+{
+  "simulationConfigName": "normalSimulation",
+  "workflows": [{
+    "workflowName": "test",
+    "workflowFilename": "normalUser1Workflow.json",
+    "instances": 4
+  }
+  ],
+  "producers": [{
+    "type": "file",
+    "output.directory": "/tmp/datagenerator",
+    "file.prefix": "MYPREFIX_",
+    "file.extension":".json"
+  },{
+    "type":"logger"
+  }]
+}
